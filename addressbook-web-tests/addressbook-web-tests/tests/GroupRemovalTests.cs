@@ -16,10 +16,7 @@ namespace WebAddressBookTests
         public void GroupRemovalTest()
         {
             app.Navigator.GoToGroupsPage();
-            app.Groups
-                .SelectGroup(1)
-                .DeleteSelectedGroup()
-                .ReturnToGroupsPage();
+            app.Groups.Remove(1);
         }
 
     }
