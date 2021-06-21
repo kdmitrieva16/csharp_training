@@ -8,7 +8,7 @@ namespace WebAddressBookTests
 
 {
     [TestFixture]
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
 
 
@@ -16,8 +16,8 @@ namespace WebAddressBookTests
         public void GroupModificationTest()
         {
             GroupData newData = new GroupData("zzz");
-            newData.Header = "xxx";
-            newData.Footer = "yyy";
+            newData.Header = null;
+            newData.Footer = null;
             app.Groups.Modify(1,newData);
             
         }
