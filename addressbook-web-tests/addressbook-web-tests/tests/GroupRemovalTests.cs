@@ -17,10 +17,19 @@ namespace WebAddressBookTests
         public void GroupRemovalTest()
         {
             app.Navigator.GoToGroupsPage();
-           List<GroupData> oldGroups = app.Groups.GetGroupList();
-            app.Groups.Remove(1);
+            if (app.Groups.IsGroupListEmpty())
+            {
+
+                GroupData group = new GroupData("if empty");
+                group.Header = "";
+                group.Footer = "";
+                app.Groups.Create(group);
+            }
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            app.Groups.Remove(0);
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count - 1, newGroups.Count);
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
     }

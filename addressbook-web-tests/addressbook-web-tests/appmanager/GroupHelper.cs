@@ -84,7 +84,7 @@ namespace WebAddressBookTests
         }
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
         public GroupHelper DeleteSelectedGroup()
@@ -104,10 +104,10 @@ namespace WebAddressBookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
-        public bool IsGroupExist()
+        public bool IsGroupListEmpty()
         {
-            return IsElementPresent(By.CssSelector("span.group"));
-
+            manager.Navigator.GoToGroupsPage();
+            return !IsElementPresent(By.XPath("//input[@name='selected[]']"));
         }
 
     }

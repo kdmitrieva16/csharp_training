@@ -80,7 +80,7 @@ namespace WebAddressBookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -106,6 +106,12 @@ namespace WebAddressBookTests
         {
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
+        }
+
+        public bool IsContactsEmpty()
+        {
+            manager.Navigator.OpenHomePage();
+            return !IsElementPresent(By.XPath("//input[@name='selected[]']"));
         }
 
     }
