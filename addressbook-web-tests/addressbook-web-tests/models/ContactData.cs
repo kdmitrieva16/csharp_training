@@ -49,25 +49,36 @@ namespace WebAddressBookTests
             {
                 return true;
             }
-            return FirstName == other.FirstName;
+            if (FirstName == other.FirstName)
+            {
+                if (LastName == other.LastName)
+               {
+                    return true;
+                }     
+            }
+            return false;
         }
         public override int GetHashCode()
         {
-            return FirstName.GetHashCode();
+            return (FirstName+LastName).GetHashCode();
         }
 
         public override string ToString()
         {
-            return "firstname=" + FirstName;
+            return "firstname:" + FirstName + ", lastname:" + LastName;
         }
 
         public int CompareTo(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
+            if (object.ReferenceEquals(other, null))
             {
                 return 1;
             }
-            return FirstName.CompareTo(other.FirstName);
+            if (firstname.CompareTo(other.firstname) == 0)
+            {
+                return LastName.CompareTo(other.LastName);
+            }
+            return firstname.CompareTo(other.firstname);
         }
 
     }

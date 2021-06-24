@@ -25,12 +25,16 @@ namespace WebAddressBookTests
 
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.OpenHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("selected[]"));
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            List<ContactData> contacts = new List<ContactData>() { };
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text));
+                String firstName = element.FindElement(By.XPath(".//td[3]")).Text;
+                String lastName = element.FindElement(By.XPath(".//td[2]")).Text;
+                ContactData contact = (new ContactData(firstName));
+                contact.LastName = lastName;
+                contacts.Add(contact);
             }
             return contacts;
         }
