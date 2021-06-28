@@ -9,12 +9,12 @@ using NUnit.Framework;
 namespace WebAddressBookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactInformationTests : AuthTestBase
     {
 
 
         [Test]
-        public void ContactModificationTest()
+        public void ContactInformationTest()
         {
             if (app.Contacts.IsContactsEmpty())
             {
