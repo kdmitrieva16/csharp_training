@@ -4,6 +4,11 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.IO;
+using System.Xml;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
+
 
 
 namespace WebAddressBookTests
@@ -19,7 +24,7 @@ namespace WebAddressBookTests
                 contacts.Add(new ContactData(GenerateRandomString(50))
                 {
                     LastName = GenerateRandomString(50),
-                    
+
                 });
 
             }
@@ -27,7 +32,13 @@ namespace WebAddressBookTests
 
         }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(@"contacts.json"));
+        }
+
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
 
@@ -41,5 +52,6 @@ namespace WebAddressBookTests
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
         }
-    }
+
+    }   
 }
