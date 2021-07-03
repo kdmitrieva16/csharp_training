@@ -108,6 +108,17 @@ namespace WebAddressBookTests
             manager.Navigator.GotoHomePage();
             return this;
         }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.OpenHomePage();
+            SelectContact(contact.Id);
+            DeleteSelectedContact();
+            SubmitContactDeletion();
+            manager.Navigator.GotoHomePage();
+            return this;
+        }
+
         public ContactHelper Modify(int p, ContactData newData)
         {
             SelectContact(p);
@@ -118,8 +129,17 @@ namespace WebAddressBookTests
             return this;
 
         }
+        public ContactHelper Modify(ContactData contact, ContactData newData)
+        {
+            SelectContact(contact.Id);
+            InitContactModification();
+            FillContactForm(newData);
+            SubmitContactModification();
+            ReturnToHomePage();
+            return this;
 
-      
+        }
+
 
         public ContactHelper ReturnToHomePage()
         {
@@ -150,6 +170,11 @@ namespace WebAddressBookTests
             return this;
         }
 
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
         public ContactHelper DeleteSelectedContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
